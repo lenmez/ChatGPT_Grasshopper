@@ -14,7 +14,6 @@ namespace ChatGPT
 {
     public class ChatGPTComponent : GH_Component
     {
-        string API_KEY { get; set; }
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
         /// constructor without any arguments.
@@ -23,8 +22,8 @@ namespace ChatGPT
         /// new tabs/panels will automatically be created.
         /// </summary>
         public ChatGPTComponent()
-          : base("ChatGPT", "Nickname",
-            "Description",
+          : base("Chat GPT Component", "CG",
+            "Component that talks to Chat GPT",
             "ChatGPT", "ChatGPT")
         {
         }
@@ -35,7 +34,7 @@ namespace ChatGPT
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Open API Key", "Open API Key", "Get it from https://beta.openai.com/account/api-keys", GH_ParamAccess.item);
-            pManager.AddTextParameter("Question", "Question", "", GH_ParamAccess.item);
+            pManager.AddTextParameter("Question", "Question", "Prompt for Chat GPT", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace ChatGPT
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Answer", "Answer", "", GH_ParamAccess.item);
+            pManager.AddTextParameter("Answer", "Answer", "Response based on the prompt", GH_ParamAccess.item);
         }
 
         /// <summary>
