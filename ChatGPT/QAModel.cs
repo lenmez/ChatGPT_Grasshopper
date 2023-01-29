@@ -1,23 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace ChatGPT
 {
+    /// <summary>
+    /// This object, on conversion to JSON, can be posted to OpenAI completions API
+    /// https://api.openai.com/v1/completions
+    /// </summary>
     [Serializable]
-    public class QAModel:ISerializable
+    public class QAModel : ISerializable
     {
+        /// <summary>
+        /// Model to use, for example "text-davinci-003"
+        /// </summary>
         public string Model { get; set; }
+
+        /// <summary>
+        /// Prompts /Questions to generate completions for
+        /// </summary>
         public string Prompt { get; set; }
+
+        /// <summary>
+        /// Sampling temterature (Lower values result in well defined answers)
+        /// Higher values will take risks and get more creative
+        /// </summary>
         public double Temperature { get; set; }
+
+        /// <summary>
+        /// May number of tokens to generate
+        /// </summary>
         public int Max_Tokens { get; set; }
+
+        /// <summary>
+        /// Nucleus sampling (better keep default as 1, unless you know what you are doing)
+        /// </summary>
         public int Top_p { get; set; }
-        public double Frequency_Penalty { get; set; }
-        public double Presence_Penalty { get; set; }
+        public double Frequency_Penalty { get; set; } = 0.0;
+        public double Presence_Penalty { get; set; } = 0.0;
+        
+        /// <summary>
+        /// Stop sequence
+        /// </summary>
         public string[] Stop { get; set; }
 
         public QAModel()
@@ -42,4 +67,8 @@ namespace ChatGPT
             info.AddValue("stop", Stop);
         }
     }
+
+  
+
+  
 }

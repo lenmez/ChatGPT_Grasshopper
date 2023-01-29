@@ -12,6 +12,9 @@ using System.Runtime.Serialization;
 
 namespace ChatGPT
 {
+    /// <summary>
+    ///  Grasshopper component that makes Chat GPT completion API calls 
+    /// </summary>
     public class ChatGPTComponent : GH_Component
     {
         /// <summary>
@@ -54,6 +57,8 @@ namespace ChatGPT
         {
             string key = "";
             string ques = "";
+
+            //Get Input values
             if (!DA.GetData(0, ref key))
                 return;
             if (!DA.GetData(1, ref ques))
@@ -77,9 +82,7 @@ namespace ChatGPT
                 Model = model,
                 Prompt = ques,
                 Max_Tokens = 100,
-                Temperature = 0,
-                Frequency_Penalty = 0.0,
-                Presence_Penalty = 0.0,
+                Temperature = 0,              
                 Stop = new string[] { "\"n" }
             };
 
@@ -120,43 +123,5 @@ namespace ChatGPT
         public override Guid ComponentGuid => new Guid("7eb13b9a-9dca-40c5-b5b9-728f509cfb2b");
     }
 
-    [Serializable]
-    public class AnswerModel:ISerializable
-    {
-        public Choice[] Choices { get; set; }
-
-        public AnswerModel(SerializationInfo info, StreamingContext context)
-        {
-            foreach(SerializationEntry s in info)
-            {
-                switch(s.Name)
-                {
-                    case "choices":
-                        Choices = info.GetValue("choices", typeof(Choice[])) as Choice[];
-                        break;
-                }
-            }
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    [Serializable]
-    public class Choice:ISerializable
-    {
-        public string Text { get; set; }
-
-        public Choice(SerializationInfo info, StreamingContext context)
-        {
-            Text = info.GetString("text");
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
 }
